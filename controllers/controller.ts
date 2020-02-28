@@ -1,19 +1,26 @@
 
 function createCar(plate:string,brand:string,color:string){
-    let car = new Car(plate,color,brand);
-    let result: HTMLHeadingElement = document.querySelector("#carInfo") as HTMLHeadingElement;
+
+    let carInfo: HTMLHeadingElement = document.querySelector("#carInfo") as HTMLHeadingElement;
+    let wheelsInfo: HTMLHeadingElement = document.querySelector("#wheelsInfo") as HTMLHeadingElement;
     let inputPlate: any = document.querySelector("#inputPlate");
-
-//    let plateValue =  inputPlate.value;
+    let inputBrand: any = document.querySelector("#inputBrand");
+    let inputColor: any = document.querySelector("#inputColor");
     
-    console.log(inputPlate.value);
+    plate = inputPlate.value;
+
+    let car = new Car(plate,inputBrand.value,inputColor.value);
+    //    let plateValue =  inputPlate.value;
+    console.log(plate);
     
+    car.addWheel(new Wheel(4,"SEAT"));
 
-    car.addWheel(new Wheel(2,"SEAT"));
+    carInfo.classList.add("alert","alert-info");
+    
+    carInfo.innerHTML = "CAR:</br> PLATE:"  + car.plate 
+    + "</br> COLOR: " + car.color + "</br> BRAND: " + car.brand;
 
-    result.innerHTML = "CAR: PLATE: </br>"  + car.plate 
-    + " COLOR: " + car.color + " BRAND: " + brand 
-    + " WHEELS: " + JSON.stringify(car.wheels);
+    wheelsInfo.innerHTML = "WHEELS: " + JSON.stringify(car.wheels);
 
    
 }
