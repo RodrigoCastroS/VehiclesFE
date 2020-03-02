@@ -21,19 +21,18 @@
                 <label for="inputColor">Color</label>
                 <input type="text" id="inputColor" class="form-control">
             </div>
-        </div>
-        
+        </div><!-- car specs row --> 
         <div class="form-row">
             <div class=" input-group col-md-3">
                 <button type="button" class="btn btn-primary mt-3" onclick="createCar()">Create car</button>
             </div>    
-        </div>
+        </div><!-- button car specs row -->
         
-        <div class="mt-3 col-md-4" id="carInfo"></div>
-        <div class="mt-3 col-md-4" id="wheelsInfo"></div>
+        <!-- <div class="mt-3 col-md-4" id="carInfo"></div>
+        <div class="mt-3 col-md-4" id="wheelsInfo"></div> -->
 
-        <div class="form" hidden="true">
-            <h2 class="m-2">Wheels info</h2>
+        <div class="form invisible" id="wheelsInput" >
+            <h2 class="m-4 text-center">Wheels info</h2>
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="brandWheel1">Brand Wheel 1</label>
@@ -51,7 +50,7 @@
                     <label for="brandWheel1">Brand Wheel 4</label>
                     <input type="text" id="brandWheel4" class="form-control">
                 </div>
-            </div>
+            </div> <!-- brand wheels row -->
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="diameterWheel1">Diameter Wheel 1</label>
@@ -69,10 +68,16 @@
                     <label for="diameterWheel4">Diameter Wheel 4</label>
                     <input type="text" id="diameterWheel4" class="form-control">    
                 </div>
-            </div>
-        </div>
-        
-    </div>    
+            </div><!-- diameter wheels row -->
+            <div class="form-row">
+                <div class=" input-group col-md-3">
+                    <button type="button" class="btn btn-primary mt-3" onclick="checkWheels()">Check wheels</button>
+                </div>    
+            </div><!-- button wheels row -->
+        </div><!-- form -->
+        <div class="mt-3 col-md-4" id="carInfo"></div>
+        <div class="mt-3 col-md-4" id="wheelsInfo"></div>
+    </div><!-- container -->    
 
 
 <!-- bootstrap -->
