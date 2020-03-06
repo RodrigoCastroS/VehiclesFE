@@ -30,11 +30,13 @@ function createCar() {
         + "</br> COLOR: " + car.color + "</br> BRAND: " + car.brand;
 }
 function checkWheels() {
-    var brandWheel1 = document.querySelector("#brandWheel1"), brandWheel2 = document.querySelector("#brandWheel2"), brandWheel3 = document.querySelector("#brandWheel3"), brandWheel4 = document.querySelector("#brandWheel4"), diameterWheel1 = document.querySelector("#diameterWheel1"), diameterWheel2 = document.querySelector("#diameterWheel2"), diameterWheel3 = document.querySelector("#diameterWheel3"), diameterWheel4 = document.querySelector("#diameterWheel4");
+    var brandWheel = document.querySelector("#brandWheel1"), brandWheel2 = document.querySelector("#brandWheel2"), brandWheel3 = document.querySelector("#brandWheel3"), brandWheel4 = document.querySelector("#brandWheel4"), diameterWheel = document.querySelector("#diameterWheel1"), diameterWheel2 = document.querySelector("#diameterWheel2"), diameterWheel3 = document.querySelector("#diameterWheel3"), diameterWheel4 = document.querySelector("#diameterWheel4");
     var wheelsOutput = document.querySelector("#wheelsInfo");
-    car.addWheel(new Wheel(diameterWheel1.value, brandWheel1.value));
-    car.addWheel(new Wheel(diameterWheel2.value, brandWheel2.value));
-    wheelsOutput.innerHTML = "WHEELS: " + car.wheels[0].brand + car.wheels[0].diameter;
+    for (var i = 1; i < 5; i++) {
+        car.addWheel(new Wheel(diameterWheel.value, brandWheel.value));
+        wheelsOutput.innerHTML = "WHEELS: " + diameterWheel.value;
+    }
+    // wheelsOutput.innerHTML = "WHEELS: " + car.wheels[i].brand + car.wheels[i].diameter;
 }
 ;
 // FUNCTIONS -----------------------------------------------------------------------------------

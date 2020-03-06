@@ -1,5 +1,4 @@
 
-
 // VARIABLES ---------------------------------------------------------------------------------
 
 let car: Car;
@@ -41,21 +40,26 @@ let car: Car;
     
     function checkWheels(){
       
-        let brandWheel1: any = document.querySelector("#brandWheel1"),
+        let brandWheel: any = document.querySelector("#brandWheel1"),
             brandWheel2: any = document.querySelector("#brandWheel2"),
             brandWheel3: any = document.querySelector("#brandWheel3"),
             brandWheel4: any = document.querySelector("#brandWheel4"),
-            diameterWheel1: any = document.querySelector("#diameterWheel1"),
+            diameterWheel: any = document.querySelector("#diameterWheel1"),
             diameterWheel2: number | any = document.querySelector("#diameterWheel2"),
             diameterWheel3: number | any = document.querySelector("#diameterWheel3"),
             diameterWheel4: number | any = document.querySelector("#diameterWheel4");
         
         let wheelsOutput: HTMLHeadingElement = document.querySelector("#wheelsInfo") as HTMLHeadingElement;
+           
+        
+            for (let i = 1; i < 5; i++) {
+                
+                car.addWheel(new Wheel(diameterWheel.value, brandWheel.value));
+                wheelsOutput.innerHTML = "WHEELS: " + diameterWheel.value  ;
+                
+            }
             
-            car.addWheel(new Wheel(diameterWheel1.value, brandWheel1.value));
-            car.addWheel(new Wheel(diameterWheel2.value, brandWheel2.value));
-            
-            wheelsOutput.innerHTML = "WHEELS: " + car.wheels[0].brand + car.wheels[0].diameter;
+            // wheelsOutput.innerHTML = "WHEELS: " + car.wheels[i].brand + car.wheels[i].diameter;
             
     };
     
