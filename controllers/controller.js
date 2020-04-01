@@ -1,43 +1,49 @@
 "use strict";
-// VARIABLES ---------------------------------------------------------------------------------
 var car;
-/*
-    let inputPlate: any = document.querySelector("#inputPlate");
-    let inputBrand: any = document.querySelector("#inputBrand");
-    let inputColor: any = document.querySelector("#inputColor");
-
-    let brandWheel1: any = document.querySelector("#brandWheel" + i),
-        brandWheel2: any = document.querySelector("#brandWheel2"),
-        brandWheel3: any = document.querySelector("#brandWheel3"),
-        brandWheel4: any = document.querySelector("#brandWheel4"),
-        diameterWheel1: any = document.querySelector("#diameterWheel1"),
-        diameterWheel2: any = document.querySelector("#diameterWheel2"),
-        diameterWheel3: any = document.querySelector("#diameterWheel3"),
-        diameterWheel4: any = document.querySelector("#diameterWheel4");
-    */
-//let
-// END VARIABLES -------------------------------------------------------------------------------
 function createCar() {
     var inputPlate = document.querySelector("#inputPlate"), inputBrand = document.querySelector("#inputBrand"), inputColor = document.querySelector("#inputColor");
-    var wheelsShow = document.querySelector("#wheelsShow");
-    var carOutput = document.querySelector("#carInfo");
-    car = new Car(inputPlate.value, inputBrand.value, inputColor.value);
-    // Shows the wheels inputs
-    wheelsShow.classList.remove("invisible");
-    wheelsShow.classList.add("visible");
-    carOutput.classList.add("alert", "alert-info");
-    carOutput.innerHTML = "CAR:</br> PLATE:" + car.plate
-        + "</br> COLOR: " + car.color + "</br> BRAND: " + car.brand;
+    inputPlate = inputPlate.value.toUpperCase();
+    var checkPlate = new RegExp(/(\d{4})([^AEIOU]{3})/g);
+    if (inputPlate == "") {
+        alert("No puedes dejar el campo de matrícula");
+    }
+    else if (!checkPlate.test(inputPlate)) {
+        alert("La matrícula tiene que tener 4 numeros y 3 letras. Ej: 2222XRZ");
+    }
+    else {
+        var wheelsShow = document.querySelector("#wheelsShow");
+        var carOutput = document.querySelector("#carInfo");
+        car = new Car(inputPlate, inputBrand.value, inputColor.value);
+        // Shows the wheels inputs
+        wheelsShow.classList.remove("invisible");
+        wheelsShow.classList.add("visible");
+        carOutput.classList.add("alert", "alert-info");
+        carOutput.innerHTML = "CAR:</br> PLATE: " + car.plate
+            + "</br> COLOR: " + car.color + "</br> BRAND: " + car.brand;
+    }
 }
 function checkWheels() {
-    var brandWheel = document.querySelector("#brandWheel1"), brandWheel2 = document.querySelector("#brandWheel2"), brandWheel3 = document.querySelector("#brandWheel3"), brandWheel4 = document.querySelector("#brandWheel4"), diameterWheel = document.querySelector("#diameterWheel1"), diameterWheel2 = document.querySelector("#diameterWheel2"), diameterWheel3 = document.querySelector("#diameterWheel3"), diameterWheel4 = document.querySelector("#diameterWheel4");
+    var wheelInput = document.querySelectorAll(".wheel");
     var wheelsOutput = document.querySelector("#wheelsInfo");
-    for (var i = 1; i < 5; i++) {
-        car.addWheel(new Wheel(diameterWheel.value, brandWheel.value));
-        wheelsOutput.innerHTML = "WHEELS: " + diameterWheel.value;
+    for (var i = 0; i < 4; i++) {
+        var brandWheel = document.querySelector("#brandWheel" + (i + 1));
+        var diameterWheel = document.querySelector("#diameterWheel" + (i + 1));
+        if (diameterWheel.value == "") {
+            alert("Por favor rellena diametro de la rueda" + (i + 1));
+        }
+        else {
+            diameterWheel = parseFloat(diameterWheel.value);
+            if (diameterWheel > 0.4 || diameterWheel < 2) {
+                car.addWheel(new Wheel(diameterWheel, brandWheel.value));
+                wheelsOutput.innerHTML += "<strong>Wheel " + (i + 1) + "</strong> Brand:  " + car.wheels[i].brand + " Diameter: " + car.wheels[i].diameter + "</br>";
+            }
+            else {
+                alert("El diametro de la ruerda " + (i + 1) + " no es correcto");
+                wheelsOutput.innerHTML = " ";
+            }
+        }
     }
-    // wheelsOutput.innerHTML = "WHEELS: " + car.wheels[i].brand + car.wheels[i].diameter;
+    wheelsOutput.classList.add("alert", "alert-secondary");
+    console.log(car.wheels);
 }
 ;
-// FUNCTIONS -----------------------------------------------------------------------------------
-// END FUNCTIONS ---------------------------------------------------------------------------------
