@@ -1,9 +1,11 @@
 "use strict";
+//we initialize the car object to make it global
 var car;
 function createCar() {
     var inputPlate = document.querySelector("#inputPlate"), inputBrand = document.querySelector("#inputBrand"), inputColor = document.querySelector("#inputColor");
     inputPlate = inputPlate.value.toUpperCase();
     var checkPlate = new RegExp(/(\d{4})([^AEIOU]{3})/g);
+    // Check if the inputPlate field is empty or is a valid plate   
     if (inputPlate == "") {
         alert("No puedes dejar el campo de matrícula");
     }
@@ -17,6 +19,7 @@ function createCar() {
         // Shows the wheels inputs
         wheelsShow.classList.remove("invisible");
         wheelsShow.classList.add("visible");
+        // Outputs the info introduce on the input
         carOutput.classList.add("alert", "alert-info");
         carOutput.innerHTML = "CAR:</br> PLATE: " + car.plate
             + "</br> COLOR: " + car.color + "</br> BRAND: " + car.brand;
@@ -25,25 +28,30 @@ function createCar() {
 function checkWheels() {
     var wheelInput = document.querySelectorAll(".wheel");
     var wheelsOutput = document.querySelector("#wheelsInfo");
+    var countErrors = 0;
+    //Loop to check the input values of every diameter
     for (var i = 0; i < 4; i++) {
-        var brandWheel = document.querySelector("#brandWheel" + (i + 1));
         var diameterWheel = document.querySelector("#diameterWheel" + (i + 1));
         if (diameterWheel.value == "") {
             alert("Por favor rellena diametro de la rueda" + (i + 1));
+            countErrors++;
         }
-        else {
-            diameterWheel = parseFloat(diameterWheel.value);
-            if (diameterWheel > 0.4 || diameterWheel < 2) {
-                car.addWheel(new Wheel(diameterWheel, brandWheel.value));
-                wheelsOutput.innerHTML += "<strong>Wheel " + (i + 1) + "</strong> Brand:  " + car.wheels[i].brand + " Diameter: " + car.wheels[i].diameter + "</br>";
-            }
-            else {
-                alert("El diametro de la ruerda " + (i + 1) + " no es correcto");
-                wheelsOutput.innerHTML = " ";
-            }
+        else if (diameterWheel < 0.4 || diameterWheel > 2) {
+            alert("El diametro de la ruerda " + (i + 1) + " no es correcto");
+            countErrors++;
         }
     }
-    wheelsOutput.classList.add("alert", "alert-secondary");
-    console.log(car.wheels);
+    //If the inputs are filled we create the wheels
+    if (countErrors == 0) {
+        for (var i = 0; i < 4; i++) {
+            var brandWheel = document.querySelector("#brandWheel" + (i + 1));
+            var diameterWheel = document.querySelector("#diameterWheel" + (i + 1));
+            diameterWheel = parseFloat(diameterWheel.value);
+            car.addWheel(new Wheel(diameterWheel, brandWheel.value));
+            wheelsOutput.innerHTML += "<strong>Wheel " + (i + 1) + "</strong> Brand:  " + car.wheels[i].brand + " Diameter: " + car.wheels[i].diameter + "</br>";
+            wheelsOutput.classList.add("alert", "alert-secondary");
+        }
+    }
+    // console.log(car.wheels);
 }
 ;

@@ -1,5 +1,5 @@
 
-
+//we initialize the car object to make it global
 let car: Car;
 
     
@@ -8,8 +8,10 @@ let car: Car;
             inputBrand: any = document.querySelector("#inputBrand"),
             inputColor: any = document.querySelector("#inputColor");
             inputPlate = inputPlate.value.toUpperCase();
+        
         let checkPlate = new RegExp(/(\d{4})([^AEIOU]{3})/g);  
-            
+
+        // Check if the inputPlate field is empty or is a valid plate   
         if(inputPlate == ""){
             alert("No puedes dejar el campo de matrícula");
         }else if(!checkPlate.test(inputPlate)){
@@ -22,7 +24,7 @@ let car: Car;
             // Shows the wheels inputs
             wheelsShow.classList.remove("invisible");
             wheelsShow.classList.add("visible");
-            
+            // Outputs the info introduce on the input
             carOutput.classList.add("alert","alert-info");
             carOutput.innerHTML = "CAR:</br> PLATE: "  + car.plate 
             + "</br> COLOR: " + car.color + "</br> BRAND: " + car.brand;
@@ -32,31 +34,36 @@ let car: Car;
 
  
     function checkWheels(){
-      
         let wheelInput = document.querySelectorAll(".wheel"); 
         let wheelsOutput: HTMLHeadingElement = document.querySelector("#wheelsInfo") as HTMLHeadingElement;
-       
-        
+        let countErrors = 0;
+
+        //Loop to check the input values of every diameter
         for (let i = 0; i < 4; i++) {    
-            let brandWheel: any = document.querySelector("#brandWheel"+ (i+1));
             let diameterWheel: any = document.querySelector("#diameterWheel"+(i+1));
-            
             if(diameterWheel.value == ""){
                 alert("Por favor rellena diametro de la rueda" + (i+1));
-            }else{
-                diameterWheel = parseFloat(diameterWheel.value);
-                if(diameterWheel > 0.4 || diameterWheel < 2){
-                    car.addWheel(new Wheel(diameterWheel, brandWheel.value));
-                    wheelsOutput.innerHTML += `<strong>Wheel ${i+1}</strong> Brand:  ${car.wheels[i].brand} Diameter: ${car.wheels[i].diameter}</br>`; 
-                }else{
-                    alert("El diametro de la ruerda "+ (i+1) + " no es correcto");
-                    wheelsOutput.innerHTML = " ";
-                }
+                countErrors++;
+            }else if(diameterWheel < 0.4 || diameterWheel > 2){
+                alert("El diametro de la ruerda "+ (i+1) + " no es correcto");
+                countErrors++;
             }
         }
-        wheelsOutput.classList.add("alert","alert-secondary");
-        
-        console.log(car.wheels);
+        //If the inputs are filled we create the wheels
+        if(countErrors == 0){
+            for (let i = 0; i < 4; i++) {
+                let brandWheel: any = document.querySelector("#brandWheel"+ (i+1));
+                let diameterWheel: any = document.querySelector("#diameterWheel"+(i+1));
+                diameterWheel = parseFloat(diameterWheel.value);
+                
+                car.addWheel(new Wheel(diameterWheel, brandWheel.value));
+                wheelsOutput.innerHTML += `<strong>Wheel ${i+1}</strong> Brand:  ${car.wheels[i].brand} Diameter: ${car.wheels[i].diameter}</br>`; 
+                wheelsOutput.classList.add("alert","alert-secondary");
+                
+            }
+        }
+
+        // console.log(car.wheels);
       
     };
     
