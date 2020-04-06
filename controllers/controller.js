@@ -3,8 +3,8 @@
 var car;
 function createCar() {
     var inputPlate = document.querySelector("#inputPlate"), inputBrand = document.querySelector("#inputBrand"), inputColor = document.querySelector("#inputColor");
-    inputPlate = inputPlate.value.toUpperCase();
     var checkPlate = new RegExp(/(\d{4})([^AEIOU]{3})/g);
+    inputPlate = inputPlate.value.toUpperCase();
     // Check if the inputPlate field is empty or is a valid plate   
     if (inputPlate == "") {
         alert("No puedes dejar el campo de matrícula");
@@ -29,9 +29,14 @@ function checkWheels() {
     var wheelInput = document.querySelectorAll(".wheel");
     var wheelsOutput = document.querySelector("#wheelsInfo");
     var countErrors = 0;
+    //Empty the fields and wheels array in case they were filled
+    wheelsOutput.innerHTML = "";
+    wheelsOutput.classList.remove("alert", "alert-secondary");
+    car.wheels = [];
     //Loop to check the input values of every diameter
     for (var i = 0; i < 4; i++) {
         var diameterWheel = document.querySelector("#diameterWheel" + (i + 1));
+        diameterWheel = parseFloat(diameterWheel.value);
         if (diameterWheel.value == "") {
             alert("Por favor rellena diametro de la rueda" + (i + 1));
             countErrors++;
